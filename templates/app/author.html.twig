@@ -1,0 +1,42 @@
+{% extends "base.html.twig" %}
+
+
+{% block body %}
+
+            
+                <div class="px-60 py-20">
+                    <div class="inline-block align-top align-center">
+                        <img
+                            src="{{ author.imagePath }}"
+                            alt=""
+                            class="h-60 w-30 "
+                        />
+                    </div>
+                    
+                    <div class="inline-block pl-5 text-gray-700 font-bold text-2xl py-5">
+                        <ul class="list-disc">
+                            <li>
+                                <h1 class="">{{ author.name }}</h1>
+                            </li>
+                            <li>
+                                <h1 class="">Born: {{ author.origin }}, {{author.dob|date("d/m/Y")}}</h1>
+                            </li>
+                            {% if author.dod %}
+                                <li>
+                                    <h1 class="">Died: {{author.dod|date("d/m/Y")}}</h1>
+                                </li>
+                            {% endif %}
+                            
+                        </ul>
+                    </div>
+                    <h6 class="text-sm pt-5">{{author.biography}}</h6>
+                </div>
+                
+                <div class="md:grid lg:grid-cols-3 gap-20 w-4/5 mx-auto py-15 ">
+                    {% for book in author.books %}
+                        {% include "presets/bookList.html.twig" %}
+                    {% endfor %}
+                </div>
+               
+          
+{% endblock %}

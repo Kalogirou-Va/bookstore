@@ -18,7 +18,7 @@ class BookController extends AbstractController
     }
 
     #[Route('/book', name: 'app_book')]
-    public function index(): Response
+    public function books(): Response
     {
         $repository = $this->em->getRepository(Book::class);
         $books = $repository->findAll();
@@ -27,6 +27,19 @@ class BookController extends AbstractController
         
         return $this->render('app/books.html.twig', [
             'books'=>$books
+        ]);
+    }
+
+    #[Route('/book/{id}', name: 'app_book_page')]
+    public function book($id): Response
+    {
+        $repository = $this->em->getRepository(Book::class);
+        $book = $repository->find($id);
+        
+    
+        
+        return $this->render('app/book.html.twig', [
+            'book'=>$book
         ]);
     }
 }
