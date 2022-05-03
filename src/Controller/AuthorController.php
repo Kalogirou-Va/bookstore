@@ -18,17 +18,26 @@ class AuthorController extends AbstractController
     }
 
     #[Route('/author', name: 'app_author')]
-    public function index(): Response
+    public function authors(): Response
     {
         $repository = $this->em->getRepository(Author::class);
         $authors = $repository->findAll();
         
-        dd($authors);
-        exit();
+        return $this->render('app/authors.html.twig', [
+            'authors'=>$authors
+        ]);
+    }
 
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/AuthorController.php',
+    #[Route('/author/{id}', name: 'app_author_page')]
+    public function author($id): Response
+    {
+        $repository = $this->em->getRepository(Author::class);
+        $author = $repository->find($id);
+        
+ 
+
+        return $this->render('app/author.html.twig', [
+            'author'=>$author
         ]);
     }
 }
